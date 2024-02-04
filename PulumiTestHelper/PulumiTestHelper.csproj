@@ -15,14 +15,12 @@
         <PackageTags>pulumi, test</PackageTags>
         <Authors>Zhimin(Rex) Ye</Authors>
 
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>        
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 
-    <ItemGroup>
-        <None Include="../LICENSE.txt" Pack="true" PackagePath=""/>
+    <ItemGroup>        
         <None Include="icon.jpg" Pack="true" PackagePath=""/>
         <None Include="../readme.md" Pack="true" PackagePath=""/>
     </ItemGroup>
