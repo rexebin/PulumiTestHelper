@@ -7,8 +7,8 @@ The goal of this package is to make testing feel like first class citizen in Pul
 
 # Motivation
 
-The build in testing support in Pulumi has the following pain points:
-1. to add a mock, we have to figure out the string representation of the resource identifiers
+The build-in testing support in Pulumi has the following pain points:
+1. to add a mock, we have to figure out the string representations of the resource identifiers
 2. the mock replaces the property as a whole, potentially removing child properties that are needed for the test
 3. mocking stack reference is not straightforward
 4. a lot of setup code is needed to create a mock
@@ -29,7 +29,7 @@ public async Task<StackResult> BuildStackAsync<T>(TestOptions? testOptions = nul
 public async Task<StackResult> BuildStackAsync<T>(IServiceProvider serviceProvider,
         TestOptions? testOptions = null) where T : Stack, new()
 ```
-Example:
+#### Example:
 ```c#
 var result = await new StackBuilder().BuildStackAsync<MyStack>();
 
@@ -50,21 +50,22 @@ var resourceInputs = result.ResourceInputs;
 It takes `MockResourceArgs` as input and returns a dictionary of the resource properties, so that you can provide mocks based on existing resource inputs.
 
 ```c#
-```c#
 public StackBuilder AddMocksForAllResources(Func<MockResourceArgs, Dictionary<string, object>> mocks)
 ```
-For example, below tests shows that `arn` property of all resources is mocked with the resource name appended with `_arn`.
+
+#### Example
+Below tests shows that `arn` property of all resources is mocked with the resource name appended with `_arn`.
 
 ```c#
 [Fact]
 public async Task Should_Mock_All_Resource_Properties_With_Given_Rule()
 {
-    var result = await _baseStackBuilder.BuildStackAsync<AwsStack>();
+    var result = await new StackBuilder().BuildStackAsync<AwsStack>();
 
     var repository = result.Resources.OfType<Repository>().Single();
     repository.Arn.GetValue().Should().BeNull();
 
-    result = await _baseStackBuilder.AddMocksForAllResources(args => new Dictionary<string, object>
+    result = await new StackBuilder().AddMocksForAllResources(args => new Dictionary<string, object>
     {
         {"arn", $"{args.Name}_arn"}
     }).BuildStackAsync<AwsStack>();
@@ -89,10 +90,7 @@ AddResourceMockFunc(ResourceMockFunc resourceMockFunc)
 AddResourceMockFuncs(List<ResourceMockFunc> resourceMockFuncs)
 ```
 
-AddResourceMockFunc takes the pulumi `MockResourceArgs` as input and returns a dictionary of the resource properties, so that you can provide mocks based on existing resource inputs. 
-```c#
-
-Example:
+#### Example:
 ```c#
 var result = await new StackBuilder()
         .AddResourceMock(new ResourceMock(typeof(Image),
@@ -105,6 +103,8 @@ var result = await new StackBuilder()
 image = result.Resources.OfType<Image>().Single(x => x.HasName("my-image"));
 image.ImageUri.GetValue().Should().Be(imageUri);
 ```
+
+`AddResourceMockFunc` takes the pulumi `MockResourceArgs` as input and returns a dictionary of the resource properties, so that you can provide mocks based on existing resource inputs.
 
 ```c#
 var result = await new StackBuilder()
@@ -125,9 +125,9 @@ AddCallMock(CallMock callMock)
 AddCallMocks(List<CallMock> callMocks)
 AddCallMockFunc(CallMockFunc callMockFunc)
 ```
-Examples:
+#### Example:
 
-Below code makes a call to `GetRepository` and assigns it to `RepositoryUrl` property of the stack as stack output.
+Below code makes a call to `GetRepository` and assigns the `RepositoryUrl` value to the `RepositoryUrl` property of the stack as stack output.
 ```c#
 [Output] public Output<string> RepositoryUrl { get; set; }
 public MyStack()
@@ -156,7 +156,7 @@ stack.RepositoryUrl.GetValue().Should().Be(mock);
 
 To mock stack references, use `AddStackReferenceMock` method.
 
-Example:
+#### Example:
 
 Below code uses a stack reference to get the `hosted-zone-id` output from another stack.
 ```c#
