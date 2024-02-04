@@ -22,13 +22,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="../LICENSE.txt" Pack="true" PackagePath=""/>
         <None Include="icon.jpg" Pack="true" PackagePath=""/>
         <None Include="../readme.md" Pack="true" PackagePath=""/>
@@ -36,7 +29,10 @@
 
     <ItemGroup>
         <PackageReference Include="Pulumi" Version="3.0.0"/>
-        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1"/>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>
