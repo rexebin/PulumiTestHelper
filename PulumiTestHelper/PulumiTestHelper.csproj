@@ -16,7 +16,7 @@
         <Authors>Zhimin(Rex) Ye</Authors>
 
         <PackageLicenseExpression>MIT</PackageLicenseExpression>        
-        <PackageIcon>icon.png</PackageIcon>
+        <PackageIcon>icon.jpg</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 

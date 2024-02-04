@@ -24,6 +24,7 @@ defaults:
 
 jobs:
   create_nuget:
+    name: Create Nuget Package
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
