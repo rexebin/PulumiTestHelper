@@ -34,7 +34,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with: 
-        DOTNET_VERSION: 8.x
+        DOTNET_VERSION: 6.x
 
     - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
 
@@ -46,13 +46,14 @@ jobs:
         path: ${{ env.NuGetDirectory }}/*.nupkg
 
   validate_nuget:
+    name: Validate Nuget Package
     runs-on: ubuntu-latest
     needs: [ create_nuget ]
     steps:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with: 
-          DOTNET_VERSION: 8.x
+          DOTNET_VERSION: 6.x
 
       - uses: actions/download-artifact@v4
         with:
@@ -66,6 +67,7 @@ jobs:
         run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NuGetDirectory }}/*.nupkg")
 
   run_test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -74,12 +76,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        DOTNET_VERSION: 8.x
+        DOTNET_VERSION: 6.x
 
     - name: Run tests
       run: dotnet test --configuration Release
 
   deploy:
+    name: Deploy Nuget Package
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     needs: [ validate_nuget, run_test ]
@@ -92,7 +95,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with: 
-          DOTNET_VERSION: 8.x
+          DOTNET_VERSION: 6.x
 
       - name: Publish NuGet package
         run: |

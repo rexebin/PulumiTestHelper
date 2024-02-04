@@ -97,7 +97,7 @@ public class Tests
     [Fact]
     public async Task Should_Add_ResourceMocks()
     {
-        var result = await _baseStackBuilder.AddResourceMocks([
+        var (resources, _) = await _baseStackBuilder.AddResourceMocks([
             new ResourceMock(typeof(Image),
                 new Dictionary<string, object>
                 {
@@ -108,11 +108,11 @@ public class Tests
                 {"repositoryUrl", "my-repository-url"}
             })
         ]).BuildStackAsync<AwsStack>();
-
-        var image = result.Resources.OfType<Image>().Single(x => x.HasName("my-image"));
+        
+        var image = resources.OfType<Image>().Single(x => x.HasName("my-image"));
         image.ImageUri.GetValue().Should().Be("my-image-uri");
 
-        var repository = result.Resources.OfType<Repository>().Single();
+        var repository = resources.OfType<Repository>().Single();
         repository.RepositoryUrl.GetValue().Should().Be("my-repository-url");
     }
 

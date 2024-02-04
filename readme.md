@@ -31,17 +31,8 @@ public async Task<StackResult> BuildStackAsync<T>(IServiceProvider serviceProvid
 ```
 #### Example:
 ```c#
-var result = await new StackBuilder().BuildStackAsync<MyStack>();
-
-var resources = result.Resources;
-var resourceInputs = result.ResourceInputs;
-```
-
-```c# 
-var result = await new StackBuilder().BuildStackAsync<MyStack>(serviceProvider);
-
-var resources = result.Resources;
-var resourceInputs = result.ResourceInputs;
+var (resources, resourceInputs) = await new StackBuilder().BuildStackAsync<MyStack>();
+var (resources, resourceInputs) = await new StackBuilder().BuildStackAsync<MyStack>(serviceProvider);
 ```
 
 ## Add Mocks for all resources

@@ -5,7 +5,7 @@ namespace PulumiTestHelper.Models;
 /// <summary>
 /// Represents a mock for a Pulumi stack reference.
 /// </summary>
-public class StackReferenceMock : ResourceMock
+public record StackReferenceMock : ResourceMock
 {
     /// <inheritdoc />
     public StackReferenceMock(string stackReferenceName, Dictionary<string, object> mocks) : base(
