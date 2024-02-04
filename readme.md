@@ -3,7 +3,7 @@
 
 This is a helper package for testing Pulumi programs.
 
-The goal of this package is to make testing feel like first class citizen in Pulumi.
+The goal of this package is to make testing feel like first-class citizen in Pulumi.
 
 # Motivation
 

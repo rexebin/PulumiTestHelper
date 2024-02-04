@@ -4,12 +4,39 @@
         <TargetFrameworks>net6;netcoreapp3.1</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
+        
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+       
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <PackageProjectUrl>https://github.com/rexebin/PulumiTestHelper</PackageProjectUrl>
+        <Description>Pulumi Test Helper</Description>
+        <PackageTags>pulumi, test</PackageTags>
+        <Authors>Zhimin(Rex) Ye</Authors>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../LICENSE.txt" Pack="true" PackagePath=""/>
+        <None Include="icon.jpg" Pack="true" PackagePath=""/>
+        <None Include="../readme.md" Pack="true" PackagePath=""/>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Pulumi" Version="3.0.0"/>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1"/>
     </ItemGroup>
 
 </Project>
