@@ -68,9 +68,10 @@ internal class Mocks(
     private void AddStackReferenceMocks(MockResourceArgs args, ImmutableDictionary<string, object>.Builder outputs)
     {
         var mocks = resourceMocks
-            .Where(x => x is StackReferenceMock)
-            .Where(x => ((StackReferenceMock) x).StackReferenceName == args.Name)
-            .Select(x => x.Mocks).DeepMergeMany();
+            .OfType<StackReferenceMock>()
+            .Where(x => x.StackReferenceName == args.Name)
+            .Select(x => x.Mocks)
+            .DeepMergeMany();
 
         outputs.Add("secretOutputNames", new List<string>());
         outputs.Add("outputs", mocks);
@@ -86,6 +87,4 @@ internal class Mocks(
 
         return mocks.DeepMergeInto(mocksFromFunc);
     }
-
-    
 }
